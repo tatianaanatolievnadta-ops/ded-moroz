@@ -186,6 +186,8 @@ input[type=date]{color-scheme:dark}
 .drop b{font:italic 400 24px var(--serif)}
 .drop small{color:var(--muted);font-size:13px}
 .drop svg{width:30px;height:30px;color:var(--gold)}
+.note-chat{border:1px solid var(--line);padding:18px 20px;background:rgba(8,18,15,.35)}
+.note-chat p{margin:8px 0 0;color:var(--muted);font-size:15px;line-height:1.5;text-transform:none;letter-spacing:0}
 .thumbs{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
 .thumbs div{position:relative}
 .thumbs img{width:78px;height:78px;object-fit:cover;border:1px solid var(--line)}
@@ -436,7 +438,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
     <div class="wrap">
       <div class="panel">
         <div id="formBox">
-          <div class="center"><div class="sc">Заказ</div><h2>Заказать <em class="foil">мультик</em></h2><p class="lede" style="margin:0 auto">Три минуты на форму. Фото видим только мы с вами, и нужны они только для вашего мультика.</p></div>
+          <div class="center"><div class="sc">Заказ</div><h2>Заказать <em class="foil">мультик</em></h2><p class="lede" style="margin:0 auto">Выберите формат и напишите мне в <b>Max</b> или Telegram — там же пришлите фото малыша и пожелания. Скидка из игры подставится сама.</p></div>
           <form id="orderForm" novalidate>
             <div><label for="childName">Имя ребёнка (как зовёте дома)</label><input type="text" id="childName" placeholder="Например, Машенька" required></div>
             <div><label for="age">Возраст</label><input type="text" id="age" placeholder="Например, 4 года"></div>
@@ -451,29 +453,21 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
               </div>
             </div>
 
-            <div>
-              <label>Фото ребёнка (1–3) *</label>
-              <label class="drop" id="dropKid"><input type="file" accept="image/*" multiple id="kidFiles"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="5" width="18" height="15"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 5l1.5-2h5L16 5"/></svg><b>Фото малыша</b><small>Лицо крупно, без фильтров, при дневном свете</small></label>
-              <div class="thumbs" id="kidThumbs"></div>
-            </div>
-            <div>
-              <label>Фото комнаты (по желанию)</label>
-              <label class="drop" id="dropRoom"><input type="file" accept="image/*" multiple id="roomFiles"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 11l9-7 9 7v9H3z"/><path d="M9 20v-6h6v6"/></svg><b>Фото интерьера</b><small>Тогда Дед Мороз придёт прямо к вам домой</small></label>
-              <div class="thumbs" id="roomThumbs"></div>
+            <div class="full note-chat">
+              <div class="sc">Фото — в чат</div>
+              <p>1–3 фото малыша (лицо крупно, дневной свет) и при желании фото комнаты пришлите прямо в переписке в Max или Telegram. Так удобнее и безопаснее.</p>
             </div>
 
             <div class="full"><label for="wishes">Что должен сказать Дед Мороз</label><textarea id="wishes" placeholder="За что похвалить (научилась читать, ходит в садик без слёз…), о каком подарке мечтает, кто передаёт привет, любимая игрушка"></textarea></div>
 
-            <div><label for="contact">Ваш Telegram или телефон *</label><input type="text" id="contact" placeholder="@username или +7…" required></div>
-            <div><label for="contactType">Куда прислать мультик</label><select id="contactType"><option>Telegram</option><option>WhatsApp</option><option>Директ Instagram</option></select></div>
             <div><label for="deadline">К какой дате нужен</label><input type="date" id="deadline"></div>
-            <div><label for="promo">Промокод</label><input type="text" id="promo" placeholder="Получите в игре выше" autocomplete="off"></div>
+            <div><label for="promo">Промокод (из игры)</label><input type="text" id="promo" placeholder="MOROZ5 / MOROZ10 / MOROZ15" autocomplete="off"></div>
 
             <label class="check full"><input type="checkbox" id="agree"> Я родитель или законный представитель ребёнка и согласен(на) на обработку фото и данных только для изготовления этого видео.</label>
 
             <div class="full total">
               <div><div class="sc">К оплате</div><div class="sum" id="totalSum">—</div></div>
-              <button class="btn" type="submit" id="submitBtn">Отправить заявку</button>
+              <button class="btn" type="submit" id="submitBtn">Продолжить в чат</button>
             </div>
             <div class="err full" id="err"></div>
           </form>
@@ -494,8 +488,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
     <div class="wrap" style="max-width:900px">
       <div class="center"><div class="sc">Вопросы</div><h2>Частые <em class="foil">вопросы</em></h2></div>
       <details><summary>Сколько ждать мультик?</summary><p>Обычно 1–3 дня после оплаты. Ближе к 31 декабря заказов больше, поэтому лучше заказать заранее и указать в форме, к какой дате нужно.</p></details>
-      <details><summary>Какое фото подойдёт?</summary><p>Чёткое фото, где лицо видно крупно и анфас, при дневном свете, без фильтров, масок и шапки. Лучше прислать 2–3 фото: так сходство будет точнее.</p></details>
-      <details><summary>Безопасно ли присылать фото ребёнка?</summary><p>Фото видим только мы с вами. Они используются только для вашего мультика и никуда не публикуются без вашего разрешения.</p></details>
+      <details><summary>Какое фото подойдёт?</summary><p>Чёткое фото, где лицо видно крупно и анфас, при дневном свете, без фильтров, масок и шапки. Лучше прислать 2–3 фото прямо в Max или Telegram после заказа.</p></details>
+      <details><summary>Безопасно ли присылать фото ребёнка?</summary><p>Фото вы присылаете мне в личный чат (Max или Telegram). Они используются только для вашего мультика и никуда не публикуются без вашего разрешения.</p></details>
+      <details><summary>Как получить скидку?</summary><p>Поиграйте в «Поймай Деда Мороза» на сайте: за шапку −15%, за нос −10%, за бороду −5%. Промокод подставится в заказ сам.</p></details>
       <details><summary>А если что-то не понравится?</summary><p>Напишите мне, и мы поправим. Одна правка входит в стоимость.</p></details>
       <details><summary>Можно для нескольких детей или всей группы в садике?</summary><p>Да. Напишите в пожеланиях или в Telegram, и я посчитаю цену для группы.</p></details>
     </div>
@@ -553,6 +548,8 @@ const CONFIG = {
   DEADLINE_SHORT: "25.12",
   TELEGRAM_URL: "https://t.me/tatiana_tandem",
   TELEGRAM_LABEL: "Telegram @tatiana_tandem",
+  MAX_URL: "https://max.ru/u/f9LHodD0cOK6-6VwSulzQHJDFOdTL8fXMupOu_RrLnSJTcq3wGpXyNOg6Lw",
+  MAX_LABEL: "Max",
   CURRENCY: "₽"
 };
 const ZONES = { hat:{pct:15,name:"за шапку"}, face:{pct:10,name:"за нос"}, beard:{pct:5,name:"за бороду"} };
@@ -742,53 +739,59 @@ if(discount){ $("#hint").innerHTML=`<div class="sc">Вы уже поймали �
 /* ---------- примеры, контакты ---------- */
 if(CONFIG.EXAMPLES.length){ $("#examples").style.display=""; $("#exGrid").innerHTML=CONFIG.EXAMPLES.map(x=>`<div><video src="${x.src}" controls playsinline preload="metadata"></video><p>${x.title||""}</p></div>`).join(""); }
 $("#deadlineShort").textContent=CONFIG.DEADLINE_SHORT;
-if(CONFIG.TELEGRAM_URL) $("#footContacts").innerHTML=`<a href="${CONFIG.TELEGRAM_URL}" target="_blank" rel="noopener">${CONFIG.TELEGRAM_LABEL}</a>`;
+(function footContacts(){
+  const parts=[];
+  if(CONFIG.MAX_URL) parts.push(`<a href="${CONFIG.MAX_URL}" target="_blank" rel="noopener">${CONFIG.MAX_LABEL||"Max"}</a>`);
+  if(CONFIG.TELEGRAM_URL) parts.push(`<a href="${CONFIG.TELEGRAM_URL}" target="_blank" rel="noopener">${CONFIG.TELEGRAM_LABEL}</a>`);
+  $("#footContacts").innerHTML=parts.join(" · ");
+})();
 
-/* ---------- фото: загрузка и сжатие ---------- */
-const files={kid:[],room:[]};
-function compress(file){ return new Promise((res,rej)=>{ const img=new Image(); const url=URL.createObjectURL(file);
-  img.onload=()=>{ const max=1600, k=Math.min(1,max/Math.max(img.width,img.height)); const c=document.createElement("canvas"); c.width=Math.round(img.width*k); c.height=Math.round(img.height*k); c.getContext("2d").drawImage(img,0,0,c.width,c.height); URL.revokeObjectURL(url); res(c.toDataURL("image/jpeg",0.86)); };
-  img.onerror=()=>{ URL.revokeObjectURL(url); rej(new Error("Не удалось открыть фото: "+file.name)); }; img.src=url; }); }
-function bindDrop(kind,dropSel,inputSel,thumbSel,limit){
-  const drop=$(dropSel), inp=$(inputSel);
-  async function add(list){ for(const f of list){ if(!f.type.startsWith("image/")) continue; if(files[kind].length>=limit){ toast("Можно до "+limit+" фото"); break; }
-      try{ files[kind].push({data:await compress(f)}); }catch(e){ toast(e.message+". Попробуйте JPG или PNG"); } } draw(); }
-  function draw(){ $(thumbSel).innerHTML=files[kind].map((f,i)=>`<div><img src="${f.data}" alt=""><button type="button" data-i="${i}" aria-label="Удалить">×</button></div>`).join("");
-    $(thumbSel).querySelectorAll("button").forEach(b=>b.onclick=()=>{ files[kind].splice(+b.dataset.i,1); draw(); }); }
-  inp.addEventListener("change",()=>{ add([...inp.files]); inp.value=""; });
-  ["dragenter","dragover"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add("over")}));
-  ["dragleave","drop"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove("over")}));
-  drop.addEventListener("drop",e=>add([...e.dataTransfer.files]));
+function orderMessage(){
+  const p=pkg(), total=priceAfter(p.price), name=$("#childName").value.trim()||"…";
+  const style=(document.querySelector('input[name="style"]:checked')||{}).value||"";
+  const age=$("#age").value.trim(), wishes=$("#wishes").value.trim(), deadline=$("#deadline").value;
+  const promo=$("#promo").value.trim()||(CODES[discount]||"");
+  return [
+    "Здравствуйте! Хочу заказать мультик с Дедом Морозом.",
+    `Формат: ${p.title}`,
+    `К оплате: ${total} ₽`+(discount?` (скидка ${discount}%${promo?`, код ${promo}`:""})`:""),
+    `Ребёнок: ${name}`+(age?`, ${age}`:""),
+    style?`Стиль: ${style}`:"",
+    deadline?`Нужен к: ${deadline}`:"",
+    wishes?`Пожелания: ${wishes}`:"",
+    "Сейчас пришлю фото малыша (и комнаты, если нужно)."
+  ].filter(Boolean).join("\n");
 }
-bindDrop("kid","#dropKid","#kidFiles","#kidThumbs",3);
-bindDrop("room","#dropRoom","#roomFiles","#roomThumbs",3);
+function tgOrderUrl(){
+  if(!CONFIG.TELEGRAM_URL) return "";
+  const base=CONFIG.TELEGRAM_URL.replace(/\/$/,"");
+  // t.me/username → share text; deep link with text=
+  const user=base.split("/").pop();
+  return `https://t.me/${user}?text=${encodeURIComponent(orderMessage())}`;
+}
 
-/* ---------- отправка заявки ---------- */
-$("#orderForm").addEventListener("submit",async e=>{
+/* ---------- заказ → чат (Max / Telegram), фото в переписке ---------- */
+$("#orderForm").addEventListener("submit",e=>{
   e.preventDefault(); const err=$("#err"); err.textContent="";
-  const name=$("#childName").value.trim(), contact=$("#contact").value.trim();
+  const name=$("#childName").value.trim();
   if(!name) return err.textContent="Напишите имя ребёнка";
-  if(!files.kid.length) return err.textContent="Загрузите хотя бы одно фото ребёнка";
-  if(!contact) return err.textContent="Оставьте Telegram или телефон, чтобы я прислала мультик";
   if(!$("#agree").checked) return err.textContent="Отметьте согласие на обработку фото";
   const p=pkg(), total=priceAfter(p.price);
-  const payload={ childName:name, age:$("#age").value.trim(), packageId:p.id, packageTitle:p.title, price:p.price, discount, total,
-    promo:$("#promo").value.trim(), style:(document.querySelector('input[name="style"]:checked')||{}).value||"",
-    wishes:$("#wishes").value.trim(), contact, contactType:$("#contactType").value, deadline:$("#deadline").value,
-    files:[...files.kid.map((f,i)=>({name:"ребенок_"+(i+1)+".jpg",type:"image/jpeg",data:f.data.split(",")[1]})),
-           ...files.room.map((f,i)=>({name:"комната_"+(i+1)+".jpg",type:"image/jpeg",data:f.data.split(",")[1]}))] };
-  const btn=$("#submitBtn"); btn.disabled=true; btn.textContent="Отправляю…";
-  let ok=false, id="";
-  if(!CONFIG.BACKEND_URL){ ok=true; id="ДЕМО"; }
-  else{ try{ const r=await fetch(CONFIG.BACKEND_URL,{method:"POST",body:JSON.stringify(payload)}); const j=await r.json(); ok=!!j.ok; id=j.id||""; }catch(x){ ok=false; } }
-  btn.disabled=false; btn.textContent="Отправить заявку";
-  if(!ok){ err.innerHTML="Не получилось отправить заявку. Попробуйте ещё раз"+(CONFIG.TELEGRAM_URL?` или напишите мне в <a href="${CONFIG.TELEGRAM_URL}" target="_blank" rel="noopener">Telegram</a>`:"")+"."; return; }
   const link=CONFIG.PAY_LINKS[p.id+"_"+discount];
+  const msg=orderMessage();
   $("#formBox").style.display="none"; $("#doneBox").classList.add("show");
-  $("#doneText").innerHTML=(id==="ДЕМО"?"<b style='color:#e9a29a'>Демо-режим: заявка не отправлена (не подключён приём заявок).</b><br>":"")+
-    `Заявка ${id&&id!=="ДЕМО"?"№ "+id+" ":""}на «${p.title}», малыш: ${name.replace(/</g,"")}. К оплате: <b style="color:var(--gold2)">${fmt(total)}</b>${discount?` (скидка ${discount}%)`:""}. `+
-    (link?"Оплатите по кнопке ниже, и я сразу возьму заказ в работу.":"Я напишу вам в ближайшее время и пришлю ссылку на оплату.");
-  $("#doneBtns").innerHTML=(link?`<a class="btn" href="${link}" target="_blank" rel="noopener">Оплатить ${fmt(total)}</a>`:"")+(CONFIG.TELEGRAM_URL?`<a class="btn ghost" href="${CONFIG.TELEGRAM_URL}" target="_blank" rel="noopener">Написать в Telegram</a>`:"");
+  $("#doneText").innerHTML=
+    `Заказ «${p.title}» для <b>${name.replace(/</g,"")}</b>. К оплате: <b style="color:var(--gold2)">${fmt(total)}</b>${discount?` (скидка ${discount}% — вы поймали Деда Мороза!)`:""}.`+
+    `<br><br>Напишите мне в <b>Max</b> или Telegram и пришлите фото малыша. Текст заявки уже готов — можно скопировать:`+
+    `<pre style="white-space:pre-wrap;text-align:left;background:rgba(0,0,0,.25);padding:14px;border-radius:12px;margin:16px 0 0;font:14px/1.45 Manrope,sans-serif;color:var(--ivory)">${msg.replace(/</g,"&lt;")}</pre>`;
+  const btns=[];
+  if(CONFIG.MAX_URL) btns.push(`<a class="btn" href="${CONFIG.MAX_URL}" target="_blank" rel="noopener">Написать в Max</a>`);
+  if(CONFIG.TELEGRAM_URL) btns.push(`<a class="btn ${CONFIG.MAX_URL?"ghost":""}" href="${tgOrderUrl()}" target="_blank" rel="noopener">Telegram</a>`);
+  if(link) btns.push(`<a class="btn ghost" href="${link}" target="_blank" rel="noopener">Оплатить ${fmt(total)}</a>`);
+  btns.push(`<button type="button" class="btn ghost" id="copyOrder">Скопировать текст</button>`);
+  $("#doneBtns").innerHTML=btns.join("");
+  const copyBtn=$("#copyOrder");
+  if(copyBtn) copyBtn.onclick=async()=>{ try{ await navigator.clipboard.writeText(msg); toast("Текст скопирован — вставьте в Max"); }catch(x){ toast("Скопируйте текст вручную из блока выше"); } };
   $("#order").scrollIntoView({behavior:"smooth"});
 });
 
